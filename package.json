@@ -1,0 +1,31 @@
+{
+  "name": "cv-generator",
+  "version": "1.0.0",
+  "description": "Static HTML resume site with PDF export capability",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js",
+    "build": "node build.js && node generate-og-image.js",
+    "generate-pdfs": "node generate-pdfs.js",
+    "og-image": "node generate-og-image.js",
+    "postinstall": "npx puppeteer browsers install chrome"
+  },
+  "keywords": [
+    "resume",
+    "cv",
+    "portfolio",
+    "html",
+    "pdf"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "@iarna/toml": "^3.0.0",
+    "puppeteer": "^24.15.0"
+  }
+}

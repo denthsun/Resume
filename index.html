@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport">
+    <!-- Favicons for different platforms and sizes -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
+    <title>Loading...</title>
+    <script>
+        // Dynamically adjust viewport based on actual content width
+        (function () {
+            function adjustViewport() {
+                const container = document.querySelector('.container');
+                if (!container) {
+                    // Retry after DOM is ready
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', adjustViewport);
+                    }
+                    return;
+                }
+
+                // Get actual content width including padding
+                const contentWidth = container.offsetWidth;
+                const screenWidth = window.screen.width;
+
+                // Only adjust for mobile devices
+                if (screenWidth < contentWidth) {
+                    const viewportMeta = document.getElementById('viewport');
+                    if (viewportMeta) {
+                        viewportMeta.setAttribute('content', `width=${contentWidth}, user-scalable=yes`);
+                    }
+                }
+            }
+
+            // Run after page loads to ensure container is rendered
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', adjustViewport);
+            } else {
+                // DOM already loaded, wait a bit for styles to apply
+                setTimeout(adjustViewport, 100);
+            }
+        })();
+    </script>
+
+    <!-- OpenGraph Meta Tags (will be updated dynamically) -->
+    <meta property="og:title" content="Ernest Babayan">
+    <meta property="og:description" content="Resume • Senior iOS Developer">
+    <meta property="og:image" content="og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://ernest0n.github.io/cv-generator/">
+    <meta property="profile:first_name" content="">
+    <meta property="profile:last_name" content="">
+
+    <!-- Twitter Card Meta Tags (will be updated dynamically) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="og-image.png">
+
+    <link rel="stylesheet" href="styles.hr.css">
+    <link rel="stylesheet" href="styles.ats.css" id="atsStylesheet" disabled>
+    <script>
+        // Apply theme immediately to prevent flash of light theme
+        (function () {
+            try {
+                const stored = localStorage.getItem('cv-generator-theme');
+                if (stored === 'dark' || stored === 'light') {
+                    document.documentElement.setAttribute('data-theme', stored);
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {
+                // Ignore errors
+            }
+        })();
+    </script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script>
+        // Update OpenGraph meta tags from resume.toml (English version)
+        async function updateOpenGraphMetaTags() {
+            try {
+                const response = await fetch('/api/resume?lang=en');
+                if (!response.ok) {
+                    // Try static file as fallback
+                    const staticResponse = await fetch('data/resume-en.json');
+                    if (!staticResponse.ok) {
+                        throw new Error(`HTTP error! status: ${staticResponse.status}`);
+                    }
+                    const data = await staticResponse.json();
+                    updateMetaTags(data);
+                    return;
+                }
+                const data = await response.json();
+                updateMetaTags(data);
+            } catch (error) {
+                console.error('Error loading resume data for OpenGraph meta tags:', error);
+            }
+        }
+
+        function updateMetaTags(data) {
+            const firstName = data.firstName || '';
+            const lastName = data.lastName || '';
+            const fullName = `${firstName} ${lastName}`.trim();
+            const jobTitle = data.jobTitle || '';
+
+            // Get first line from about.en for description
+            let description = '';
+            if (data.about) {
+                const aboutLines = data.about.split('\n');
+                const firstLine = aboutLines[0]?.trim() || '';
+                // Remove markdown formatting (**bold**)
+                description = firstLine.replace(/\*\*/g, '');
+            }
+
+            // Update og:title
+            const ogTitle = fullName && jobTitle ? `${fullName} - ${jobTitle}` : (fullName || jobTitle || 'Resume');
+            updateMetaTag('property', 'og:title', ogTitle);
+            updateMetaTag('name', 'twitter:title', ogTitle);
+
+            // Update og:description
+            if (description) {
+                updateMetaTag('property', 'og:description', description);
+                updateMetaTag('name', 'twitter:description', description);
+            }
+
+            // Update profile names
+            if (firstName) {
+                updateMetaTag('property', 'profile:first_name', firstName);
+            }
+            if (lastName) {
+                updateMetaTag('property', 'profile:last_name', lastName);
+            }
+
+            // Update page title
+            if (fullName && jobTitle) {
+                document.title = `${fullName} - ${jobTitle}`;
+            } else if (fullName) {
+                document.title = `${fullName} - Resume`;
+            }
+        }
+
+        function updateMetaTag(attr, value, content) {
+            const selector = `meta[${attr}="${value}"]`;
+            const metaTag = document.querySelector(selector);
+            if (metaTag) {
+                metaTag.setAttribute('content', content);
+            }
+        }
+
+        // Update meta tags when page loads
+        updateOpenGraphMetaTags();
+    </script>
+</head>
+
+<body>
+    <div class="view-mode-switcher" id="viewModeSwitcher">
+        <button type="button" class="view-mode-switcher__option view-mode-switcher__option--active"
+            data-mode="user-friendly" aria-pressed="true">
+            <span class="iconify view-mode-switcher__icon" data-icon="mdi:account-circle" aria-hidden="true"></span>
+            <span class="view-mode-switcher__text">HR Friendly</span>
+        </button>
+        <button type="button" class="view-mode-switcher__option" data-mode="ats-friendly" aria-pressed="false">
+            <span class="iconify view-mode-switcher__icon" data-icon="mdi:robot" aria-hidden="true"></span>
+            <span class="view-mode-switcher__text">ATS Friendly</span>
+        </button>
+    </div>
+    <div class="header-bar">
+        <div class="header-bar__controls">
+            <button type="button" class="pdf-download-btn" id="pdfDownloadBtn" aria-label="Скачать резюме в PDF">
+                <span class="iconify pdf-download-btn__icon" data-icon="mdi:download" aria-hidden="true"></span>
+                <span class="pdf-download-btn__text">Скачать PDF</span>
+            </button>
+            <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Переключить темную тему">
+                <span class="iconify theme-toggle-btn__icon" data-icon="mdi:weather-night" aria-hidden="true"></span>
+            </button>
+            <div class="language-switcher" id="languageSwitcher" data-open="false">
+                <button type="button" class="language-switcher__trigger" id="languageSwitcherTrigger"
+                    aria-haspopup="listbox" aria-expanded="false" aria-label="Switch language">
+                    <span class="language-switcher__label" id="languageSwitcherCurrent">🇷🇺 RUS</span>
+                    <span class="iconify language-switcher__icon" data-icon="mdi:chevron-down"
+                        aria-hidden="true"></span>
+                </button>
+                <ul class="language-switcher__list" id="languageSwitcherList" role="listbox">
+                    <li>
+                        <button type="button" class="language-switcher__option" data-lang="ru" role="option"
+                            aria-selected="false">
+                            🇷🇺 RUS
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="language-switcher__option" data-lang="en" role="option"
+                            aria-selected="false">
+                            🇬🇧 ENG
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-avatar">
+                    <img id="avatar" src="" alt="Avatar" class="avatar">
+                </div>
+                <div class="header-info">
+                    <div class="header-text">
+                        <h1 class="name" id="fullName">Loading...</h1>
+                        <p class="job-title" id="jobTitle">Loading...</p>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-item" id="email">
+                            <span class="icon">@</span>
+                            <span class="text">loading...</span>
+                        </span>
+                        <span class="contact-item" id="location">
+                            <span class="icon">📍</span>
+                            <span class="text">loading...</span>
+                        </span>
+                        <span class="references" id="references"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content - Two Columns -->
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- About Me Section -->
+                <section class="section" id="aboutSection">
+                    <h2 class="section-title" data-title-ru="ОБО МНЕ" data-title-en="ABOUT ME">
+                        <span class="icon">
+                            <span class="iconify" data-icon="mdi:account"></span>
+                        </span>
+                        ABOUT ME
+                    </h2>
+                    <div class="section-content" id="about">
+                        <p>Loading...</p>
+                    </div>
+                </section>
+
+                <!-- Extra Skills Section -->
+                <section class="section" id="extraSkillsSection">
+                    <h2 class="section-title">
+                        <span class="icon">
+                            <span class="iconify" data-icon="mdi:star-circle"></span>
+                        </span>
+                        EXTRA SKILLS
+                    </h2>
+                    <div class="section-content" id="extraSkills">
+                        <p>Loading...</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- What I'm Looking For Section -->
+                <section class="section" id="expectationSection">
+                    <h2 class="section-title accent-red" data-title-ru="К ЧЕМУ ГОТОВ & ЧТО ХОЧУ"
+                        data-title-en="WHAT I'M LOOKING FOR">
+                        <span class="icon">
+                            <span class="iconify" data-icon="mdi:target"></span>
+                        </span>
+                        WHAT I'M LOOKING FOR
+                    </h2>
+                    <div class="section-content" id="expectation">
+                        <p>Loading...</p>
+                    </div>
+                </section>
+
+                <!-- Right stack -->
+                <div class="right-stack" id="rightStack">
+                    <!-- Interests Section -->
+                    <section class="section" id="interestsSection">
+                        <h2 class="section-title" data-title-ru="ИНТЕРЕСЫ" data-title-en="INTERESTS">
+                            <span class="icon">
+                                <span class="iconify" data-icon="mdi:sparkles"></span>
+                            </span>
+                            INTERESTS
+                        </h2>
+                        <div class="section-content" id="interests">
+                            <p>Loading...</p>
+                        </div>
+                    </section>
+
+                    <!-- Education & Languages Section -->
+                    <section class="section" id="educationLanguagesSection">
+                        <h2 class="section-title accent-green" data-title-ru="ЯЗЫКИ"
+                            data-title-en="EDUCATION & LANGUAGES">
+                            <span class="icon">
+                                <span class="iconify" data-icon="mdi:school"></span>
+                            </span>
+                            EDUCATION & LANGUAGES
+                        </h2>
+                        <div class="section-content" id="educationLanguages">
+                            <p>Loading...</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Experience Section - Full Width -->
+            <section class="section section-full-width" id="experienceSection">
+                <h2 class="section-title">
+                    <span class="icon">
+                        <span class="iconify" data-icon="mdi:briefcase"></span>
+                    </span>
+                    EXPERIENCE
+                </h2>
+                <div class="section-content" id="experience">
+                    <p>Loading...</p>
+                </div>
+            </section>
+
+            <!-- Projects Section - Full Width -->
+            <section class="section section-full-width" id="projectsSection">
+                <h2 class="section-title accent-yellow">
+                    <span class="icon">
+                        <span class="iconify" data-icon="game-icons:achievement"></span>
+                    </span>
+                    PERSONAL ACHIEVEMENTS
+                </h2>
+                <div class="section-content" id="projects">
+                    <p>Loading...</p>
+                </div>
+            </section>
+
+            <!-- Tech Stack / Skills Section - Full Width -->
+            <section class="section section-full-width" id="skillsSection">
+                <h2 class="section-title">
+                    <span class="icon">
+                        <span class="iconify" data-icon="mdi:toolbox"></span>
+                    </span>
+                    SKILLS
+                </h2>
+                <div class="section-content">
+                    <div class="skills-intro" id="skillsIntro"></div>
+                    <div id="skills">
+                        <p>Loading...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="ats-layout" id="atsLayout" aria-live="polite">
+        <header class="ats-header">
+            <div class="ats-header__left">
+                <h1 class="ats-header__name" id="atsFullName">Loading...</h1>
+                <p class="ats-header__title" id="atsJobTitle"></p>
+            </div>
+            <div class="ats-header__contacts">
+                <span id="atsEmail">Loading...</span>
+                <span id="atsLinkedIn"></span>
+                <span id="atsLocation"></span>
+            </div>
+        </header>
+
+        <section class="ats-section" id="atsAboutSection">
+            <h2 class="ats-section__title">ABOUT</h2>
+            <div class="ats-section__content" id="atsAbout">
+                <p>Loading...</p>
+            </div>
+        </section>
+
+        <section class="ats-section" id="atsExperienceSection">
+            <h2 class="ats-section__title">EXPERIENCE</h2>
+            <div class="ats-section__content" id="atsExperience">
+                <p>Loading...</p>
+            </div>
+        </section>
+
+        <section class="ats-section" id="atsEducationSection">
+            <h2 class="ats-section__title">EDUCATION</h2>
+            <div class="ats-section__content" id="atsEducation">
+                <p>Loading...</p>
+            </div>
+        </section>
+
+        <section class="ats-section" id="atsLanguagesSection">
+            <h2 class="ats-section__title">LANGUAGES</h2>
+            <div class="ats-section__content" id="atsLanguages">
+                <p>Loading...</p>
+            </div>
+        </section>
+
+        <section class="ats-section" id="atsSkillsSection">
+            <h2 class="ats-section__title">SKILLS</h2>
+            <div class="ats-section__content" id="atsSkills">Loading...</div>
+        </section>
+    </div>
+
+    <script src="ats-layout.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

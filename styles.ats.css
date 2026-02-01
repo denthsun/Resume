@@ -1,0 +1,650 @@
+/* ==================== ATS View Mode Styles ==================== */
+body[data-view-mode="ats-friendly"] {
+    background: #f0f2f8;
+    color: #111111;
+}
+
+[data-theme="dark"] body[data-view-mode="ats-friendly"] {
+    background: #1f1f1f;
+    color: #AAA599;
+}
+
+body[data-view-mode="ats-friendly"] .container {
+    display: none;
+}
+
+body[data-view-mode="ats-friendly"] .ats-layout {
+    display: block;
+}
+
+.ats-layout {
+    width: 210mm;
+    max-width: 210mm;
+    min-width: 210mm;
+    padding: var(--page-padding);
+    margin: 0 auto;
+    background-color: #ffffff;
+    color: #111111;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Times New Roman', Garamond, Verdana, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] .ats-layout {
+    background-color: #1a1a1a;
+    color: #AAA599;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.ats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+    gap: 16px;
+}
+
+.ats-header__left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+}
+
+.ats-header__name {
+    font-size: 24pt;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    text-align: left;
+    color: #1e40af;
+}
+
+.ats-header__title {
+    margin: 0 0 0px;
+    font-size: 15pt;
+    text-align: left;
+}
+
+.ats-header__contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.ats-header__contacts span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    text-align: right;
+}
+
+#atsReferences {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.ats-header__icon {
+    font-style: normal;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.ats-header__icon .iconify {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    color: currentColor;
+}
+
+.ats-header__favicon {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Location icon color */
+.ats-header__contacts span .ats-header__icon .iconify[data-icon="mdi:map-marker"] {
+    color: var(--color-red);
+}
+
+.ats-header__contacts a {
+    color: var(--color-black);
+    text-decoration: none;
+}
+
+.ats-header__contacts a:hover {
+    color: var(--color-black);
+    text-decoration: none;
+}
+
+[data-theme="dark"] .ats-header__contacts a {
+    color: var(--color-black);
+}
+
+.ats-section {
+    margin-bottom: 8px;
+}
+
+.ats-section:last-child {
+    margin-bottom: 0;
+}
+
+.ats-section__title {
+    font-size: 14pt;
+    letter-spacing: 0.3em;
+    margin: 0 0 6px;
+    padding-top: 6px;
+    border-top: 1px solid #1e40af;
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    color: #1e40af;
+}
+
+[data-theme="dark"] .ats-section__title {
+    border-top-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.ats-section__content {
+    font-size: 10pt;
+}
+
+.ats-section__content p {
+    margin: 0 0 2px;
+}
+
+.ats-section__content p:last-child {
+    margin-bottom: 0;
+}
+
+.ats-section__content p:has(+ ul),
+.ats-section__content p:has(+ ol) {
+    margin-bottom: 0px;
+}
+
+.ats-section__content p+ul,
+.ats-section__content p+ol {
+    margin-top: 0px;
+}
+
+.ats-section__content strong,
+.ats-section__content b,
+.ats-section__content u {
+    color: inherit;
+    font-weight: 700;
+}
+
+[data-theme="dark"] .ats-section__content strong,
+[data-theme="dark"] .ats-section__content b,
+[data-theme="dark"] .ats-section__content u {
+    color: inherit;
+}
+
+#atsSkills {
+    font-size: 11pt;
+}
+
+#atsLanguages {
+    font-size: 11pt;
+}
+
+.ats-section__content ul,
+.ats-section__content ol {
+    margin: 0 0 0px 12px;
+    padding-left: 30px;
+}
+
+.ats-section__content ul li,
+.ats-section__content ol li {
+    margin-bottom: 0px;
+}
+
+.ats-section__content ul li:last-child,
+.ats-section__content ol li:last-child {
+    margin-bottom: 0;
+}
+
+.ats-experience__item {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dotted #cccccc;
+}
+
+.ats-experience__item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+[data-theme="dark"] .ats-experience__item {
+    border-bottom-color: #555555;
+}
+
+.ats-experience__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 0px;
+}
+
+.ats-experience__row--company {
+    letter-spacing: 0.05em;
+    font-size: 13pt;
+    margin-bottom: 0px;
+    padding-left: 12px;
+    border-left: 3px solid #111111;
+}
+
+.ats-experience__row--company+.ats-experience__row {
+    margin-top: -4px;
+}
+
+.ats-experience__company-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ats-experience__company-icon {
+    width: 14px;
+    height: 14px;
+    color: currentColor;
+    flex-shrink: 0;
+}
+
+.ats-experience__company {
+    flex: 1 1 auto;
+    font-weight: normal;
+    color: #666666;
+}
+
+.ats-experience__position {
+    flex: 1 1 auto;
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+}
+
+.ats-experience__company-about {
+    font-size: 10pt;
+    color: #888888;
+    font-style: italic;
+    font-weight: normal;
+    flex: 1 1 auto;
+    text-align: left;
+}
+
+.ats-experience__row:has(.ats-experience__company-about) {
+    padding-left: 12px;
+    border-left: 3px solid #111111;
+}
+
+.ats-experience__period {
+    flex: 0 0 auto;
+    text-align: right;
+}
+
+[data-theme="dark"] .ats-experience__company-about {
+    color: #999999;
+}
+
+[data-theme="dark"] .ats-experience__row--company,
+[data-theme="dark"] .ats-experience__row:has(.ats-experience__company-about) {
+    border-left-color: #AAA599;
+}
+
+.ats-experience__period {
+    font-size: 10pt;
+    color: #888888;
+    font-style: italic;
+}
+
+[data-theme="dark"] .ats-experience__period {
+    color: #999999;
+}
+
+.ats-experience__item p {
+    margin-bottom: 8px;
+}
+
+.ats-experience__achievements {
+    margin-top: 8px;
+}
+
+.ats-experience__achievements-label {
+    font-size: 11pt;
+    font-weight: normal;
+    color: #111111;
+    margin-bottom: 0px;
+}
+
+[data-theme="dark"] .ats-experience__achievements-label {
+    color: #AAA599;
+}
+
+.ats-projects-list {
+    margin: 0;
+    padding-left: 20px;
+    list-style-type: decimal;
+}
+
+.ats-project__item {
+    margin-bottom: 12px;
+}
+
+.ats-project__item:last-child {
+    margin-bottom: 0;
+}
+
+.ats-project__title-row {
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.ats-project__description {
+    color: var(--color-gray);
+    font-weight: normal;
+}
+
+[data-theme="dark"] .ats-project__description {
+    color: #b0b0b0;
+}
+
+.ats-project__link {
+    font-size: 11pt;
+    color: var(--color-blue);
+    word-break: break-all;
+}
+
+[data-theme="dark"] .ats-project__link {
+    color: #64b5f6;
+}
+
+.ats-education__item {
+    margin-bottom: 0px;
+}
+
+.ats-education__item:last-child {
+    margin-bottom: 0;
+}
+
+.ats-education__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 0px;
+}
+
+.ats-education__row:last-child {
+    margin-bottom: 0;
+}
+
+.ats-education__degree {
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    flex: 1 1 auto;
+}
+
+.ats-education__university {
+    font-weight: normal;
+    flex: 1 1 auto;
+}
+
+.ats-education__period {
+    font-size: 10pt;
+    color: #888888;
+    font-style: italic;
+    flex: 0 0 auto;
+    text-align: right;
+    margin-left: auto;
+}
+
+[data-theme="dark"] .ats-education__period {
+    color: #999999;
+}
+
+/* ==================== ATS Layout Dark Theme ==================== */
+[data-theme="dark"] .ats-header__name {
+    color: #3b82f6;
+}
+
+[data-theme="dark"] .ats-header__title,
+[data-theme="dark"] .ats-header__contacts {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-section__content {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-section__content p {
+    color: #AAA599;
+}
+
+[data-theme="dark"] #atsSkills {
+    color: #AAA599;
+}
+
+[data-theme="dark"] #atsLanguages {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-section__content ul,
+[data-theme="dark"] .ats-section__content ol {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-experience__item {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-experience__row {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-experience__company {
+    color: #888888;
+}
+
+[data-theme="dark"] .ats-experience__position {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-experience__company-about {
+    color: #b0b0b0;
+}
+
+[data-theme="dark"] .ats-experience__period {
+    color: #b0b0b0;
+}
+
+[data-theme="dark"] .ats-experience__item p {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-projects-list {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-project__title-row {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-education__item {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-education__row {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-education__degree {
+    color: #AAA599;
+}
+
+[data-theme="dark"] .ats-education__university {
+    color: #AAA599;
+}
+
+@media print {
+
+    .header-bar,
+    .header-bar__controls,
+    .pdf-download-btn,
+    .theme-toggle-btn,
+    .view-mode-switcher {
+        display: none !important;
+    }
+
+    body[data-view-mode="ats-friendly"] .ats-layout,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-layout {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    [data-theme="dark"] .ats-layout,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-layout {
+        background-color: #ffffff !important;
+        color: #111111 !important;
+        border: none !important;
+    }
+
+    [data-theme="dark"] .ats-header__name,
+    [data-theme="dark"] .ats-header__title,
+    [data-theme="dark"] .ats-header__contacts,
+    body[data-view-mode="ats-friendly"] .ats-header__name,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-header__name {
+        color: #1e40af !important;
+    }
+
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-header__title,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-header__contacts {
+        color: #111111 !important;
+    }
+
+    body[data-view-mode="ats-friendly"] .ats-section__title,
+    [data-theme="dark"] .ats-section__title,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-section__title {
+        border-top-color: #1e40af !important;
+        color: #1e40af !important;
+    }
+
+    [data-theme="dark"] .ats-section__content,
+    [data-theme="dark"] .ats-section__content p,
+    [data-theme="dark"] #atsSkills,
+    [data-theme="dark"] #atsLanguages,
+    [data-theme="dark"] .ats-section__content ul,
+    [data-theme="dark"] .ats-section__content ol,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-section__content,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-section__content p,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] #atsSkills,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] #atsLanguages,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-section__content ul,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-section__content ol {
+        color: #111111 !important;
+    }
+
+    .ats-experience__company,
+    body[data-view-mode="ats-friendly"] .ats-experience__company {
+        color: #666666 !important;
+    }
+
+    [data-theme="dark"] .ats-experience__item,
+    [data-theme="dark"] .ats-experience__row,
+    [data-theme="dark"] .ats-experience__position,
+    [data-theme="dark"] .ats-experience__item p,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__item,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__row,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__position,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__item p {
+        color: #111111 !important;
+    }
+
+    [data-theme="dark"] .ats-experience__company,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__company {
+        color: #666666 !important;
+    }
+
+    [data-theme="dark"] .ats-experience__company-about,
+    [data-theme="dark"] .ats-experience__period,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__company-about,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__period {
+        color: #888888 !important;
+    }
+
+    [data-theme="dark"] .ats-experience__achievements-label,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__achievements-label {
+        color: #111111 !important;
+    }
+
+    [data-theme="dark"] .ats-projects-list,
+    [data-theme="dark"] .ats-project__title-row,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-projects-list,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-project__title-row {
+        color: #111111 !important;
+    }
+
+    [data-theme="dark"] .ats-project__description,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-project__description {
+        color: #666666 !important;
+    }
+
+    [data-theme="dark"] .ats-project__link,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-project__link {
+        color: #2196F3 !important;
+    }
+
+    [data-theme="dark"] .ats-education__item,
+    [data-theme="dark"] .ats-education__row,
+    [data-theme="dark"] .ats-education__degree,
+    [data-theme="dark"] .ats-education__university,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-education__item,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-education__row,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-education__degree,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-education__university {
+        color: #111111 !important;
+    }
+
+    [data-theme="dark"] .ats-education__period,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-education__period {
+        color: #888888 !important;
+    }
+
+    [data-theme="dark"] .ats-header__contacts a,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-header__contacts a {
+        color: #000000 !important;
+    }
+
+    [data-theme="dark"] .ats-experience__item,
+    body[data-view-mode="ats-friendly"][data-theme="dark"] .ats-experience__item {
+        border-bottom-color: #cccccc !important;
+    }
+}
+
+@page {
+    size: A4 portrait;
+    margin: 14mm;
+}

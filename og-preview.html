@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenGraph Preview</title>
+    <style>
+        @font-face {
+            font-family: 'SF Pro Rounded';
+            src: local('SF Pro Rounded'),
+                url('fonts/SF-Pro-Rounded-Light.otf') format('opentype');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'SF Pro Rounded';
+            src: local('SF Pro Rounded'),
+                url('fonts/SF-Pro-Rounded-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'SF Pro Rounded';
+            src: local('SF Pro Rounded'),
+                url('fonts/SF-Pro-Rounded-Medium.otf') format('opentype');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'SF Pro Rounded';
+            src: local('SF Pro Rounded'),
+                url('fonts/SF-Pro-Rounded-Bold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'SF Pro Rounded';
+            src: local('SF Pro Rounded'),
+                url('fonts/SF-Pro-Rounded-Heavy.otf') format('opentype');
+            font-weight: 800;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'SF Pro Rounded';
+            src: local('SF Pro Rounded'),
+                url('fonts/SF-Pro-Rounded-Black.otf') format('opentype');
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 1200px;
+            height: 630px;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f0f2f8;
+            position: relative;
+        }
+
+        .og-preview-container {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 3px solid #ddd;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .og-content {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 100px;
+            gap: 20px;
+        }
+
+        .og-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .og-header {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .og-name {
+            font-size: 64px;
+            font-weight: 800;
+            color: #000000;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            line-height: 0.95;
+            margin-bottom: 5px;
+        }
+
+        .og-title {
+            font-size: 38px;
+            color: #2196F3;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .og-subtitle {
+            font-size: 28px;
+            color: #666666;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .og-subtitle strong,
+        .og-subtitle b {
+            font-weight: 700;
+            color: #2196F3;
+        }
+
+        .og-subtitle em,
+        .og-subtitle i {
+            font-style: italic;
+        }
+
+        .og-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .og-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            color: #000000;
+        }
+
+        .og-contact-item span {
+            color: #000000;
+        }
+
+        .og-contact-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .og-contact-icon .iconify {
+            width: 24px;
+            height: 24px;
+            color: #000000;
+        }
+
+        .og-location .og-contact-icon .iconify {
+            color: #000000;
+        }
+
+        .og-favicon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        .og-contact-icon .fallback-icon {
+            display: inline-flex;
+        }
+
+        .og-right {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .og-avatar {
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #CCCCCC;
+            box-shadow: 0 0px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+</head>
+
+<body>
+    <div class="og-preview-container">
+        <div class="og-content">
+            <div class="og-left">
+                <div class="og-header">
+                    <h1 class="og-name"></h1>
+                    <p class="og-title"></p>
+                    <p class="og-subtitle"></p>
+                </div>
+
+                <div class="og-contacts">
+                    <div class="og-contact-item">
+                        <span class="og-contact-icon">
+                            <span class="iconify" data-icon="mdi:email"></span>
+                        </span>
+                        <span class="og-contact-text"></span>
+                    </div>
+                    <div class="og-contact-item og-location">
+                        <span class="og-contact-icon">
+                            <img id="telegramFavicon" src="" alt="Telegram favicon" class="og-favicon"
+                                style="display: none;">
+                            <span class="iconify fallback-icon" data-icon="mdi:telegram"></span>
+                        </span>
+                        <span class="og-contact-text"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="og-right">
+                <img id="ogAvatar" src="avatar.jpg" alt="" class="og-avatar">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get favicon URL for a given URL (same as in index.html)
+        function getFaviconUrl(url) {
+            let target = url;
+
+            try {
+                const parsed = new URL(url);
+                target = `${parsed.protocol}//${parsed.hostname}`;
+            } catch (error) {
+                const sanitized = url.replace(/^[^a-zA-Z0-9]+/, '');
+                target = `https://${sanitized}`;
+            }
+
+            const encoded = encodeURIComponent(target);
+            return `https://www.google.com/s2/favicons?sz=32&domain_url=${encoded}`;
+        }
+
+        // Load resume data from static JSON first (fallback to API in dev)
+        async function loadResumeData() {
+            const sources = [
+                'data/resume-en.json',
+                '/data/resume-en.json',
+                '/api/resume?lang=en',
+            ];
+
+            for (const url of sources) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        continue;
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.warn(`Failed to load resume data from ${url}:`, error);
+                }
+            }
+
+            throw new Error('Unable to load resume data from any source');
+        }
+
+        async function initPreview() {
+            try {
+                const data = await loadResumeData();
+
+                // Update name (English: firstName + lastName in uppercase)
+                const firstName = data.firstName;
+                const lastName = data.lastName;
+                const fullName = `${firstName} ${lastName}`.toUpperCase();
+                const nameElement = document.querySelector('.og-name');
+                if (nameElement && firstName && lastName) {
+                    nameElement.textContent = fullName;
+                }
+
+                // Update job title
+                if (data.jobTitle) {
+                    const titleElement = document.querySelector('.og-title');
+                    if (titleElement) {
+                        titleElement.textContent = data.jobTitle;
+                    }
+                }
+
+                // Update subtitle from dedicated subtitle field with markdown formatting support
+                if (data.subtitle) {
+                    // Convert markdown to HTML: **bold** -> <strong>, *italic* -> <em>
+                    let formattedLine = data.subtitle
+                        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+                    const subtitleElement = document.querySelector('.og-subtitle');
+                    if (subtitleElement && formattedLine) {
+                        subtitleElement.innerHTML = formattedLine;
+                    }
+                }
+
+                // Update email
+                if (data.email) {
+                    const emailText = document.querySelector('.og-contact-item:first-child .og-contact-text');
+                    if (emailText) {
+                        emailText.textContent = data.email;
+                    }
+                }
+
+                // Update telegram from references
+                if (data.references && Array.isArray(data.references)) {
+                    const telegramRef = data.references.find(ref => ref.type === 'telegram');
+                    if (telegramRef) {
+                        const telegramText = document.querySelector('.og-location .og-contact-text');
+                        if (telegramText && telegramRef.text) {
+                            telegramText.textContent = telegramRef.text;
+                        }
+
+                        // Load favicon for Telegram
+                        if (telegramRef.url) {
+                            const faviconElement = document.getElementById('telegramFavicon');
+                            const fallbackIcon = document.querySelector('.og-location .fallback-icon');
+                            if (faviconElement) {
+                                faviconElement.src = getFaviconUrl(telegramRef.url);
+                                faviconElement.alt = 'Telegram favicon';
+
+                                faviconElement.onload = () => {
+                                    faviconElement.style.display = 'block';
+                                    if (fallbackIcon) {
+                                        fallbackIcon.style.display = 'none';
+                                    }
+                                };
+
+                                faviconElement.onerror = () => {
+                                    faviconElement.style.display = 'none';
+                                    if (fallbackIcon) {
+                                        fallbackIcon.style.display = 'inline-flex';
+                                    }
+                                };
+                            }
+                        }
+                    }
+                }
+
+                // Update avatar alt text
+                const avatarElement = document.getElementById('ogAvatar');
+                if (avatarElement && firstName && lastName) {
+                    avatarElement.alt = fullName;
+                }
+
+            } catch (error) {
+                console.error('Error loading resume data:', error);
+                // Keep default values if API fails
+            }
+        }
+
+        // Load data when page loads
+        initPreview();
+    </script>
+</body>
+
+</html>
